@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
+dotenv.config(); // Load environment variables from .env file
 import express from "express";
 import OpenAI from "openai";
-dotenv.config();
+import cors from "cors";
 // Authenticate with our api keys
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_SECRET_KEY,
@@ -9,6 +10,11 @@ const openai = new OpenAI({
 const app = express();
 //! Pass ing incoming json data
 app.use(express.json());
+
+const corsOptions = {
+  origin: ["http://localhost:5173", "http://localhost:5174"],
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 9090;
 
